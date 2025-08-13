@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
 
-import documentRoutes from "./routes/document.routes";
-import searchRoutes from "./routes/search.routes";
+import documentRoutes from "routes/document.routes";
+import searchRoutes from "routes/search.routes";
 
-import { errorHandler } from "./middleware/errorHandler";
+import { errorHandler } from "middleware/errorHandler";
 
 const app = express();
 
