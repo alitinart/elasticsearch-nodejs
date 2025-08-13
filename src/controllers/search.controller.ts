@@ -32,11 +32,15 @@ export const search = async (
     });
 
     const results = hits.hits.map((h) => ({ id: h._id, ...h._source! }));
-    await redisClient.setEx(
-      cacheKey,
-      config.cache_time,
-      JSON.stringify(results)
-    );
+
+    if (results.length > 0) {
+      await redisClient.setEx(
+        cacheKey,
+        config.cache_time,
+        JSON.stringify(results)
+      );
+    }
+
     res.json({ hits: results, cache: false });
   } catch (err) {
     next(err);

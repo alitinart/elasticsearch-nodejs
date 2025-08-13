@@ -112,7 +112,7 @@ export const deleteRecipe = async (
     }
 
     invalidateCache();
-    res.status(200).json({ message: "Recipe deleted", result });
+    res.status(200).json({ message: "Recipe deleted" });
   } catch (err) {
     next(err);
   }
