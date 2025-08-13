@@ -27,3 +27,4 @@ services:
       PORT: 3000
       ELASTIC_SEARCH_HOST: http://elasticsearch:9200
       REDIS_HOST: redis://redis:6379
+      CACHE_TIME: 60
