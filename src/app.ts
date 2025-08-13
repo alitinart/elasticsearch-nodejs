@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/recipe", recipeRoutes);
+app.use("/api/recipes", recipeRoutes);
 app.use("/api/search", searchRoutes);
 
 app.use(errorHandler);
