@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-elasticserach",
+  "name": "elasticsearch-nodejs",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
