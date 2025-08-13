@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  elasticsearch:
+    image: elasticsearch:9.1.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.securtiy.enabled=false
+    ports:
+      - "9200:9200"
+
+  redis:
+    image: redis:7.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  api:
+    build: .
+    container_name: search_api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - elasticsearch
+      - redis
+    environment:
+      - ELASTICSEARCH_HOST=http://localhost:9200
+      - REDIS_HOST=http://localhost:6379
