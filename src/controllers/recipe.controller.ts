@@ -1,7 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import esClient from "config/elastic.config";
 import { randomUUID } from "crypto";
-import { AppError } from "/middleware/errorHandler";
+import { AppError } from "middleware/errorHandler";
+import type { Recipe } from "models/recipe.model";
 
 export const createRecipe = async (
   req: Request,
@@ -10,7 +11,7 @@ export const createRecipe = async (
 ) => {
   try {
     const id = randomUUID();
-    const body = req.body;
+    const body: Recipe = req.body;
 
     await esClient.index({
       index: "recipes",

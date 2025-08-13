@@ -11,7 +11,7 @@ type Config = {
 
 const config: Config = {
   port: Number(process.env.PORT) || 3000,
-  elastic_search_host: process.env.ELASTICSEARCH_HOST!,
+  elastic_search_host: process.env.ELASTIC_SEARCH_HOST!,
   redis_host: process.env.REDIS_HOST!,
   cache_time: Number(process.env.CACHE_TIME),
 };

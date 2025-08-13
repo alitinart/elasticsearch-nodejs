@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
-import { AppError } from "/middleware/errorHandler";
+import { AppError } from "middleware/errorHandler";
 
-import redisClient from "/config/redis.config";
+import redisClient from "config/redis.config";
 import esClient from "config/elastic.config";
 import config from "config/config";
 

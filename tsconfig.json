@@ -4,9 +4,6 @@
     "outDir": "./dist",
 
     "baseUrl": "./src",
-    "paths": {
-      "/*": ["./*"]
-    },
 
     "module": "esnext",
     "target": "es2017",
