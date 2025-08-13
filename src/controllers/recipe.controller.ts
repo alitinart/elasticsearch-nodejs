@@ -26,6 +26,27 @@ export const createRecipe = async (
   }
 };
 
+export const bulkCreateRecipe = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const recipes: Recipe[] = req.body.recipes;
+
+    const body = recipes.flatMap((recipe) => [
+      { index: { _index: "recipes", _id: randomUUID() } },
+      recipe,
+    ]);
+
+    await esClient.bulk({ refresh: true, body });
+
+    res.status(201).json({ message: `${recipes.length} recipes created` });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getRecipeById = async (
   req: Request,
   res: Response,
