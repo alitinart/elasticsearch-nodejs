@@ -1,8 +1,10 @@
 import type { Request, Response, NextFunction } from "express";
-import esClient from "config/elastic.config";
 import { randomUUID } from "crypto";
 import { AppError } from "middleware/errorHandler";
 import type { Recipe } from "models/recipe.model";
+
+import esClient from "config/elastic.config";
+import redisClient from "config/redis.config";
 
 export const createRecipe = async (
   req: Request,
@@ -65,6 +67,32 @@ export const getRecipeById = async (
   }
 };
 
+export const updateRecipe = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const changes = req.body;
+    const { id } = req.params as { id: string };
+    const action = await esClient.update({
+      index: "recipes",
+      id,
+      doc: changes,
+      refresh: true,
+    });
+
+    if (action.result === "not_found") {
+      throw new AppError("Recipe not found", 404);
+    }
+
+    invalidateCache();
+    res.status(200).json({ message: "Recipe updated" });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const deleteRecipe = async (
   req: Request,
   res: Response,
@@ -72,8 +100,25 @@ export const deleteRecipe = async (
 ) => {
   try {
     const { id } = req.params as { id: string };
-    await esClient.delete({ index: "recipes", id });
+
+    const { result } = await esClient.delete({
+      index: "recipes",
+      id,
+      refresh: true,
+    });
+
+    if (result === "not_found") {
+      throw new AppError("Recipe not found", 404);
+    }
+
+    invalidateCache();
+    res.status(200).json({ message: "Recipe deleted", result });
   } catch (err) {
     next(err);
   }
 };
+
+const invalidateCache = async () =>
+  await redisClient
+    .keys("search:*")
+    .then((keys) => keys.forEach((k) => redisClient.del(k)));
