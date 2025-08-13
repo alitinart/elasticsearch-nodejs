@@ -16,23 +16,35 @@ Clone repository
 git clone https://github.com/alitinart/elasticsearch-nodejs
 ```
 
+---
+
 ### Run with Docker
 
 ```bash
 docker compose up --build
 ```
 
+---
+
 ### Run without Docker
 
-Make sure to setup the `.env` file. In there you must include:
+Make sure to create and setup a `.env` file.
+
+In there you must include:
 
 - ELASTIC_SEARCH_HOST
 - REDIS_HOST
 - CACHE_TIME
 
-## API Endpoints
+Run the API via terminal using:
 
-# API Endpoints
+```bash
+npm start
+```
+
+---
+
+## API Endpoints
 
 | Method | Endpoint                        | Description                                   |
 | ------ | ------------------------------- | --------------------------------------------- |
