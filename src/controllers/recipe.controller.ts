@@ -64,3 +64,16 @@ export const getRecipeById = async (
     next(err);
   }
 };
+
+export const deleteRecipe = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params as { id: string };
+    await esClient.delete({ index: "recipes", id });
+  } catch (err) {
+    next(err);
+  }
+};
