@@ -24,5 +24,6 @@ services:
       - elasticsearch
       - redis
     environment:
-      - ELASTICSEARCH_HOST=http://localhost:9200
-      - REDIS_HOST=http://localhost:6379
+      PORT: 3000
+      ELASTIC_SEARCH_HOST: http://elasticsearch:9200
+      REDIS_HOST: redis://redis:6379

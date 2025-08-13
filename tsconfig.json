@@ -6,7 +6,7 @@
     "baseUrl": "./src",
 
     "module": "esnext",
-    "target": "es2017",
+    "target": "es2024",
     "moduleResolution": "bundler",
     "sourceMap": true,
     "declaration": true,
